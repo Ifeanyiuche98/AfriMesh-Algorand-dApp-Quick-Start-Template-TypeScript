@@ -1,0 +1,176 @@
+/* cyberpunk.css - Neon/glass styles for Home.tsx redesign */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+:root{
+  --bg-1: #03030a;
+  --neon-cyan: #00f7ff;
+  --neon-pink: #ff2ee6;
+  --neon-purple: #a64dff;
+  --neon-amber: #ffd24d;
+  --glass: rgba(255,255,255,0.04);
+}
+
+.cyberpunk-bg{
+  font-family: 'Orbitron', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: radial-gradient(ellipse at 10% 10%, rgba(0,247,255,0.08), transparent 8%),
+              radial-gradient(ellipse at 85% 80%, rgba(255,46,230,0.06), transparent 12%),
+              linear-gradient(180deg, #04040a 0%, #02020a 35%, #000 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* animated neon gradient shift for a living background */
+.cyberpunk-bg::after{
+  content: "";
+  position: absolute; inset: -20% -20% -20% -20%;
+  background: linear-gradient(60deg, rgba(0,247,255,0.05), rgba(166,77,255,0.05), rgba(255,46,230,0.05));
+  filter: blur(40px) saturate(140%);
+  opacity: 0.9;
+  z-index: 0;
+  animation: bgfloat 12s linear infinite;
+}
+
+@keyframes bgfloat{
+  0%{ transform: translate3d(-5%,0,0) rotate(0deg)}
+  50%{ transform: translate3d(5%,3%,0) rotate(1deg)}
+  100%{ transform: translate3d(-5%,0,0) rotate(0deg)}
+}
+
+/* subtle animated noise/scanlines - faster for more motion */
+.cyberpunk-bg::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 2px,
+    transparent 6px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.45;
+  animation: scan 6s linear infinite;
+}
+
+@keyframes scan{
+  from{ transform: translateY(-12%)}
+  to{ transform: translateY(12%)}
+}
+
+/* neon title with stronger glow + subtle flicker */
+.neon-title{
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 12px rgba(0,247,255,0.25), 0 0 36px rgba(255,46,230,0.12), 0 0 60px rgba(166,77,255,0.08);
+  display: inline-block;
+  animation: neonflick 3s linear infinite;
+  z-index: 10;
+}
+
+@keyframes neonflick{
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(0,247,255,0.22)); opacity:1 }
+  50% { filter: drop-shadow(0 0 32px rgba(255,46,230,0.28)); opacity:0.95 }
+}
+
+/* small neon subtitle with slow pulse */
+.neon-sub{
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 0 12px rgba(0,247,255,0.06);
+  opacity: 0.98;
+  animation: subpulse 6s ease-in-out infinite;
+}
+
+@keyframes subpulse{
+  0%,100%{ transform: translateY(0); opacity:0.98 }
+  50%{ transform: translateY(-3px); opacity:1 }
+}
+
+/* glass card with neon rim and inner glow */
+.glass-card{
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease, border-color 260ms ease;
+  overflow: hidden;
+}
+.glass-card::after{
+  content: "";
+  position: absolute; inset: -2px; z-index: 0;
+  background: linear-gradient(90deg, rgba(0,247,255,0.06), rgba(166,77,255,0.04), rgba(255,46,230,0.06));
+  opacity: 0; transition: opacity 260ms ease;
+  filter: blur(8px);
+}
+.glass-card:hover{
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.75), 0 0 40px rgba(0,247,255,0.08);
+  border-color: rgba(0,247,255,0.18);
+}
+.glass-card:hover::after{ opacity: 1 }
+
+/* neon buttons with animated gradient and more glow */
+.neon-button{
+  display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:14px;font-weight:800;
+  background: linear-gradient(90deg, rgba(0,247,255,0.14), rgba(255,46,230,0.12));
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff; text-shadow: 0 0 12px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 36px rgba(0,0,0,0.6), 0 0 30px rgba(0,247,255,0.08);
+  position: relative; overflow: hidden; z-index: 2;
+}
+.neon-button.primary{
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+  color: #050018; border: none; border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 60px rgba(0,247,255,0.45);
+  animation: btnglow 2.8s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+.neon-button.primary:hover{ transform: translateY(-3px) scale(1.01) }
+.neon-button.ghost{
+  background: transparent; border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: none;color:rgba(255,255,255,0.95);
+}
+
+@keyframes btnglow{
+  0%{ background-position: 0% 50%; box-shadow: 0 8px 36px rgba(0,0,0,0.6), 0 0 40px rgba(0,247,255,0.35) }
+  50%{ background-position: 100% 50%; box-shadow: 0 10px 48px rgba(0,0,0,0.65), 0 0 80px rgba(255,46,230,0.45) }
+  100%{ background-position: 0% 50%; box-shadow: 0 8px 36px rgba(0,0,0,0.6), 0 0 40px rgba(0,247,255,0.35) }
+}
+
+/* stronger neon icon drop shadow */
+.icon-neon{ filter: drop-shadow(0 8px 28px rgba(0,247,255,0.14)); }
+
+/* faint grid lines on hero + floating particles */
+.hero-grid{
+  position:absolute; inset:0; background-image: linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px; opacity:0.45; mix-blend-mode:overlay; pointer-events:none; z-index:0;
+}
+
+/* drifting holographic blobs */
+.hero-blobs{ position:absolute; inset:0; pointer-events:none; z-index:1 }
+.hero-blobs::before,
+.hero-blobs::after{
+  content: ""; position:absolute; width:40vmax; height:40vmax; border-radius:50%; filter: blur(60px); opacity:0.5; mix-blend-mode: screen;
+}
+.hero-blobs::before{ left:-10%; top:5%; background: linear-gradient(90deg, rgba(0,247,255,0.12), rgba(166,77,255,0.08)); animation: blobmove 16s ease-in-out infinite }
+.hero-blobs::after{ right:-10%; bottom:5%; background: linear-gradient(90deg, rgba(255,46,230,0.12), rgba(0,247,255,0.06)); animation: blobmove 18s ease-in-out infinite reverse }
+
+@keyframes blobmove{
+  0%{ transform: translate3d(0,0,0) scale(1) }
+  50%{ transform: translate3d(6%, -4%, 0) scale(1.05) }
+  100%{ transform: translate3d(0,0,0) scale(1) }
+}
+
+/* responsive tweaks */
+@media (max-width:768px){
+  .neon-title{font-size:2rem}
+}
+
