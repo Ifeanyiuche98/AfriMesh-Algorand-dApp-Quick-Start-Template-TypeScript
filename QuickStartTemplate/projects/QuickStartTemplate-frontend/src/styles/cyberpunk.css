@@ -1,0 +1,70 @@
+/* cyberpunk.css - scoped styles for Home.tsx */
+
+:root{
+  --neon-cyan: #00fff7;
+  --neon-pink: #ff00cc;
+  --bg-deep: #05060a;
+  --muted: rgba(200,200,255,0.12);
+}
+
+.home-root{position:relative;min-height:100vh;overflow:hidden;background:linear-gradient(180deg,#06060b 0%, #070716 60%);} 
+
+.cyber-bg{
+  position:fixed;inset:0;z-index:0;
+  background: radial-gradient(800px 400px at 10% 20%, rgba(0,255,247,0.06), transparent),
+              radial-gradient(700px 400px at 90% 80%, rgba(255,0,204,0.04), transparent),
+              linear-gradient(180deg, rgba(10,8,20,0.6), rgba(4,4,10,0.95));
+  pointer-events:none;
+}
+
+.top-bar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid rgba(0,255,247,0.08);}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-badge{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));display:flex;align-items:center;justify-content:center;color:#111;font-weight:800;box-shadow:0 0 18px rgba(0,255,247,0.08) inset}
+.brand-text{display:flex;flex-direction:column;line-height:1}
+.neon{color:var(--neon-cyan);font-weight:700;letter-spacing:1px}
+.muted{color:rgba(200,200,255,0.6);font-size:12px;margin-top:-2px}
+
+.neon-btn{background:transparent;border:1px solid rgba(0,255,247,0.12);color:var(--neon-cyan);padding:8px 12px;border-radius:999px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(6px);box-shadow:0 4px 30px rgba(0,255,247,0.04);}
+.neon-btn .btn-label{margin-left:6px}
+
+.hero{position:relative;z-index:10;padding:64px 20px 40px;display:flex;align-items:center;justify-content:center}
+.hero-inner{max-width:980px;text-align:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--neon-pink);font-weight:600;margin-bottom:18px}
+.kicker-icon{color:var(--neon-pink);font-size:20px}
+.kicker-text{color:rgba(220,220,255,0.8);font-size:13px}
+
+.glitch{font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.02;font-weight:800;color:var(--neon-cyan);position:relative;margin:6px 0 14px;text-transform:uppercase;letter-spacing:2px}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;right:0}
+.glitch::before{top:-2px;color:var(--neon-pink);mix-blend-mode:screen;clip-path:polygon(0 0,100% 0,100% 45%,0 40%);transform:translateX(-2px)}
+.glitch::after{top:2px;color:rgba(0,255,247,0.55);mix-blend-mode:screen;clip-path:polygon(0 60%,100% 55%,100% 100%,0 100%);transform:translateX(2px)}
+
+@keyframes neon-fade{0%{filter:drop-shadow(0 0 12px rgba(0,255,247,0.15))}50%{filter:drop-shadow(0 0 22px rgba(0,255,247,0.28))}100%{filter:drop-shadow(0 0 12px rgba(0,255,247,0.15))}}
+.neon-flicker .glitch{animation:neon-fade 1.8s ease-in-out infinite}
+
+.hero-sub{color:rgba(220,220,255,0.85);max-width:720px;margin:0 auto 22px}
+
+.hero-cta{display:flex;gap:12px;justify-content:center}
+.neon-cta{background:linear-gradient(90deg,var(--neon-cyan),#9a00ff);color:#04050a;padding:12px 18px;border-radius:999px;font-weight:700;border:none;box-shadow:0 10px 40px rgba(0,255,247,0.08),0 0 60px rgba(255,0,204,0.02);cursor:pointer}
+.ghost-cta{background:transparent;border:1px solid rgba(255,255,255,0.06);color:rgba(220,220,255,0.9);padding:10px 16px;border-radius:999px}
+
+.features{position:relative;z-index:10;padding:48px 20px 100px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;max-width:1000px;margin:0 auto}
+.feature-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(0,255,247,0.06);padding:20px;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(0,255,247,0.06)}
+.feature-icon{font-size:28px;color:var(--neon-pink)}
+.feature-title{color:var(--neon-cyan);font-weight:700}
+
+.connect-prompt{display:flex;flex-direction:column;align-items:center;gap:12px}
+
+.site-footer{position:relative;z-index:10;text-align:center;padding:22px 8px;color:rgba(160,240,255,0.6);border-top:1px solid rgba(0,255,247,0.03)}
+
+/* small responsive niceties */
+@media (max-width:640px){
+  .glitch{font-size:2.2rem}
+  .hero-inner{padding:8px}
+}
+
+/* subtle animated scanlines */
+.cyber-bg::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(180deg,rgba(0,0,0,0.02) 0 1px, transparent 1px 3px);opacity:0.06}
+
+/* keep styles lightweight and scoped */

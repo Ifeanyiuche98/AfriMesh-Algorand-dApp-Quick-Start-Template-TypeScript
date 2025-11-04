@@ -1,8 +1,7 @@
-// Home.tsx - Cyberpunk Redesign
-
+// Home.tsx - Modern Web3 Redesign
 import { useWallet } from '@txnlab/use-wallet-react'
 import React, { useState } from 'react'
-import { AiOutlineDeploymentUnit, AiOutlineSend, AiOutlineStar, AiOutlineWallet } from 'react-icons/ai'
+import { AiOutlineDeploymentUnit, AiOutlineSend, AiOutlineStar } from 'react-icons/ai'
 import { BsArrowUpRightCircle, BsWallet2 } from 'react-icons/bs'
 
 // Frontend modals
@@ -14,11 +13,6 @@ import Transact from './components/Transact'
 
 interface HomeProps {}
 
-const neonBorder = "border border-[#00fff7]"
-const glassBg = "bg-[#181824]/90 backdrop-blur"
-const glowText = "text-[#00fff7] font-bold"
-const iconStyle = "text-2xl text-[#ff00cc]"
-
 const Home: React.FC<HomeProps> = () => {
   const [openWalletModal, setOpenWalletModal] = useState<boolean>(false)
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
@@ -29,102 +23,121 @@ const Home: React.FC<HomeProps> = () => {
   const { activeAddress } = useWallet()
 
   return (
-    <div className={`min-h-screen ${glassBg} flex flex-col items-center justify-between font-mono`}>
-      {/* Navbar */}
-      <nav className={`w-full flex items-center justify-between px-4 py-3 ${neonBorder}`}>
-        <div className="flex items-center gap-2">
-          <span className="h-7 w-7 flex items-center justify-center rounded-full bg-[#ff00cc] text-[#181824] font-bold border border-[#00fff7]">A</span>
-          <span className={`${glowText} text-lg tracking-widest`}>Algorand CyberdApp</span>
-        </div>
-        <button
-          className={`flex items-center gap-2 px-3 py-1 rounded ${neonBorder} text-xs ${glowText}`}
-          onClick={() => setOpenWalletModal(true)}
-        >
-          <BsWallet2 className="text-[#00fff7]" />
-          {activeAddress ? 'Wallet Linked' : 'Connect'}
-        </button>
-      </nav>
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <header className="w-full border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 flex items-center justify-center rounded bg-gray-100 text-gray-800 font-bold">A</div>
+            <div>
+              <div className="text-sm font-semibold">Algorand</div>
+              <div className="text-xs text-gray-500">QuickStart Template</div>
+            </div>
+          </div>
 
-      {/* Hero */}
-      <header className="w-full flex flex-col items-center py-10">
-        <div className="flex items-center gap-2 mb-2">
-          <AiOutlineWallet className={iconStyle} />
-          <span className={`${glowText} text-xs`}>Neon Network</span>
-        </div>
-        <h2 className={`${glowText} text-3xl text-center mb-2`}>Minimal Cyberpunk dApp</h2>
-        <p className="text-[#e0e0ff] text-sm text-center max-w-md mb-4">
-          Connect your wallet, send payments, mint NFTs, create tokens, and interact with contracts.
-        </p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setOpenWalletModal(true)}
-            className={`px-4 py-2 rounded ${neonBorder} ${glowText} text-xs`}
-          >
-            {activeAddress ? 'Manage Wallet' : 'Connect Wallet'}
-          </button>
-          <a
-            href="#features"
-            className={`px-4 py-2 rounded ${neonBorder} ${glowText} text-xs`}
-          >
-            Features
-          </a>
+          <div>
+            <button
+              className="inline-flex items-center gap-2 px-3 py-1.5 border border-gray-200 rounded text-sm text-gray-700 hover:bg-gray-50"
+              onClick={() => setOpenWalletModal(true)}
+            >
+              <BsWallet2 />
+              <span>{activeAddress ? 'Wallet' : 'Connect'}</span>
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Features */}
-      <main id="features" className="w-full flex-1 flex flex-col items-center">
-        {activeAddress ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+      <main className="flex-1">
+        <section className="max-w-4xl mx-auto px-6 py-16 text-center">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Build on Algorand</h1>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            A minimal interface to mint NFTs, create tokens, send transactions, and call smart contracts. Clean, focused and fast.
+          </p>
+
+          <div className="flex items-center justify-center gap-3">
             <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenPaymentModal(true)}
-            >
-              <AiOutlineSend className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Send Payment</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenMintModal(true)}
-            >
-              <AiOutlineStar className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Mint NFT</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenTokenModal(true)}
-            >
-              <BsArrowUpRightCircle className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Create Token</span>
-            </button>
-            <button
-              className={`flex flex-col items-center gap-2 p-4 rounded ${glassBg} ${neonBorder} hover:bg-[#23234a]`}
-              onClick={() => setOpenAppCallsModal(true)}
-            >
-              <AiOutlineDeploymentUnit className={iconStyle} />
-              <span className={`${glowText} text-sm`}>Contract Interactions</span>
-            </button>
-          </div>
-        ) : (
-          <div className="w-full flex flex-col items-center py-10">
-            <p className="text-[#e0e0ff] text-base mb-4 text-center">
-              ⚡ Connect your wallet to unlock neon features.
-            </p>
-            <button
-              className={`px-6 py-3 rounded ${neonBorder} ${glowText} text-sm`}
               onClick={() => setOpenWalletModal(true)}
+              className="px-5 py-2 rounded border border-gray-200 text-sm bg-gray-50 hover:bg-gray-100"
             >
-              Connect Wallet
+              {activeAddress ? 'Manage Wallet' : 'Connect Wallet'}
             </button>
+            <a href="#features" className="px-5 py-2 rounded text-sm text-gray-600 hover:underline">Features</a>
           </div>
-        )}
+        </section>
+
+        <section id="features" className="max-w-6xl mx-auto px-6 pb-20">
+          {activeAddress ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <button
+                className="p-4 border border-gray-100 rounded text-left hover:shadow-sm"
+                onClick={() => setOpenPaymentModal(true)}
+              >
+                <div className="flex items-center gap-3">
+                  <AiOutlineSend className="text-2xl" />
+                  <div>
+                    <div className="font-semibold">Send</div>
+                    <div className="text-xs text-gray-500">Send payments quickly</div>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                className="p-4 border border-gray-100 rounded text-left hover:shadow-sm"
+                onClick={() => setOpenMintModal(true)}
+              >
+                <div className="flex items-center gap-3">
+                  <AiOutlineStar className="text-2xl" />
+                  <div>
+                    <div className="font-semibold">Mint NFT</div>
+                    <div className="text-xs text-gray-500">Create on-chain NFTs</div>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                className="p-4 border border-gray-100 rounded text-left hover:shadow-sm"
+                onClick={() => setOpenTokenModal(true)}
+              >
+                <div className="flex items-center gap-3">
+                  <BsArrowUpRightCircle className="text-2xl" />
+                  <div>
+                    <div className="font-semibold">Create Token</div>
+                    <div className="text-xs text-gray-500">Issue a new asset</div>
+                  </div>
+                </div>
+              </button>
+
+              <button
+                className="p-4 border border-gray-100 rounded text-left hover:shadow-sm"
+                onClick={() => setOpenAppCallsModal(true)}
+              >
+                <div className="flex items-center gap-3">
+                  <AiOutlineDeploymentUnit className="text-2xl" />
+                  <div>
+                    <div className="font-semibold">Smart Contract</div>
+                    <div className="text-xs text-gray-500">Interact with contracts</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600 mb-4">Connect your wallet to access features.</p>
+              <button
+                className="px-4 py-2 rounded border border-gray-200 bg-gray-50"
+                onClick={() => setOpenWalletModal(true)}
+              >
+                Connect Wallet
+              </button>
+            </div>
+          )}
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-4 text-center text-xs text-[#00fff7] font-bold border-t border-[#00fff7]">
-        Minimal cyberpunk dApp template.
+      <footer className="border-t border-gray-100">
+        <div className="max-w-6xl mx-auto px-6 py-6 text-sm text-gray-500">© {new Date().getFullYear()} Algorand QuickStart</div>
       </footer>
 
-      {/* Modals */}
+      {/* Modals - preserved unchanged */}
       <ConnectWallet openModal={openWalletModal} closeModal={() => setOpenWalletModal(false)} />
       <Transact openModal={openPaymentModal} setModalState={setOpenPaymentModal} />
       <NFTmint openModal={openMintModal} setModalState={setOpenMintModal} />
